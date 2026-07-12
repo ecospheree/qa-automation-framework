@@ -2,17 +2,54 @@ plugins {
     id 'java'
 }
 
-group = 'com.nabiel'
-version = '1.0-SNAPSHOT'
+group = 'com.nabiel.qa'
+version = '1.0.0'
 
 repositories {
     mavenCentral()
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+ext {
+    cucumberVersion = '7.22.1'
+    seleniumVersion = '4.34.0'
+    junitVersion = '5.13.3'
+    restAssuredVersion = '5.5.5'
+    webDriverManagerVersion = '6.2.0'
+}
+
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Selenium
+    testImplementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+
+    // WebDriverManager
+    testImplementation "io.github.bonigarcia:webdrivermanager:${webDriverManagerVersion}"
+
+    // Cucumber
+    testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
+    testImplementation "io.cucumber:cucumber-junit-platform-engine:${cucumberVersion}"
+
+    // JUnit
+    testImplementation platform("org.junit:junit-bom:${junitVersion}")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+
+    // REST Assured
+    testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+
+    // Jackson
+    testImplementation "com.fasterxml.jackson.core:jackson-databind:2.19.2"
+
+    // Assertions
+    testImplementation "org.assertj:assertj-core:3.27.6"
+
+    // Logging
+    testImplementation "org.slf4j:slf4j-simple:2.0.17"
 }
 
 test {
