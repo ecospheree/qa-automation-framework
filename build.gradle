@@ -50,3 +50,15 @@ dependencies {
 test {
     useJUnit()
 }
+
+task webTest(type: Test) {
+    useJUnit()
+
+    include '**/WebRunner.class'
+}
+
+task apiTest(type: Test) {
+    useJUnit()
+
+    include '**/ApiRunner.class'
+}
