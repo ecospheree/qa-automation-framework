@@ -21,11 +21,17 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Check Chrome Version
+        run: google-chrome --version
+
       - name: Grant Execute Permission
         run: chmod +x gradlew
 
       - name: Execute Web Tests
-        run: ./gradlew webTest
+        run: ./gradlew webTest --stacktrace
 
       - name: Execute API Tests
-        run: ./gradlew apiTest
+        run: ./gradlew apiTest --stacktrace
