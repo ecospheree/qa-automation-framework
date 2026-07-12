@@ -55,6 +55,14 @@ task webTest(type: Test) {
     useJUnit()
 
     include '**/WebRunner.class'
+
+    testLogging {
+        events "passed", "failed", "skipped"
+        exceptionFormat "full"
+        showExceptions true
+        showCauses true
+        showStackTraces true
+    }
 }
 
 task apiTest(type: Test) {
