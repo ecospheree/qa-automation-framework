@@ -24,8 +24,7 @@ jobs:
           chrome-version: stable
 
       - name: Verify Chrome
-        run: |
-          google-chrome --version
+        run: google-chrome --version
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -34,13 +33,14 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run Web Test
-        run: ./gradlew webTest --stacktrace
-
-      - name: Show failing test details
-        if: always()
-        run: |
-          echo "=== XML Reports ==="
-          find build/test-results -name "*.xml" -exec cat {} \;
+        run: ./gradlew webTest --stacktrace --info
 
       - name: Run API Test
-        run: ./gradlew webTest --stacktrace --info
+        run: ./gradlew apiTest
+
+      - name: Upload Automation Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: automation-reports
+          path: build/reports
